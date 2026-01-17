@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ẢNH KHÔI CHỤP </title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"> ẢNH KHÔI CHỤP</div>
+        <ul class="nav-links">
+            <li><a href="#home">Trang chủ</a></li>
+            <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#gallery">Bộ sưu tập</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <div class="theme-switch-wrapper">
+            <button id="theme-toggle" class="theme-btn">
+            <span id="theme-icon">🌙</span>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Bắt trọn từng khoảnh khắc</h1>
+            <p>Mình thường chụp ảnh Chân dung & Phong cảnh</p>
+            <a href="#gallery" class="btn">Xem tác phẩm</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container about-container">
+            <div class="about-img">
+                <img src="images/about.jpg" alt="Photographer">
+            </div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>Chào bạn, mình là Khôi - một nhiếp ảnh gia nghiệp dư.</p>
+                <p>Với mình, nhiếp ảnh không chỉ là việc bấm máy, mà là cách mình lưu giữ những gì đẹp nhất, thật nhất của mỗi người. Mình không chạy theo những khung hình rập khuôn, mình tìm kiếm những nụ cười tự nhiên, những cái nhìn đầy cảm xúc và "chất riêng" mà đôi khi chính bạn cũng chưa nhận ra.</p>
+                <p>Mình luôn cầm máy với tư thế như đang chụp cho chính mình: Tận tâm, tỉ mỉ và trân trọng từng khoảnh khắc. Hãy cùng mình viết tiếp câu chuyện của bạn bằng những khung hình thật đẹp nhé!</p>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="section-title">Những Bức Ảnh Mà Mình Đã Chụp</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="images/gallery1.jpg" alt="Photo 1">
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="images/gallery2.jpg" alt="Photo 2">
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="images/gallery3.jpg" alt="Photo 3">
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="images/gallery4.jpg" alt="Photo 4">
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container contact-container">
+            <h2 class="section-title">Thông Tin Liên Hệ Của Mình</h2>
+                <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>dinhngothaikhoi.sc@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>086 812 5974</p>
+                </div>
+                <div class="contact-item">
+                    <a href="https://instagram.com/_ioohkdd._" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        <p>_ioohkdd._</p>
+                    </a>
+                </div>
+                     <p>Nếu bạn muốn cùng mình tạo nên những bức ảnh tuyệt vời, hãy điền vào form bên dưới nhé!</p>
+            </div>
+            
+          <form action="https://formspree.io/f/mykkkzdd" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Tên của bạn" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Lời nhắn..." required></textarea>
+                <button type="submit" class="btn">Gửi đi</button>
+          </form>
+
+            </div>
+                <div class="contact-item">
+                <a href="https://zalo.me/0868125974" target="_blank">
+                <i class="fas fa-comment-dots"></i>
+                <p>Hoặc bạn có thể inbox qua Zalo</p>
+                </a>
+            </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 ẢNH KHÔI CHỤP. All Rights Reserved.</p>
+    </footer>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script src="script.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <script>AOS.init();</script>
+
+    <div class="music-container">
+        <button id="musicToggle" class="music-btn">
+        <i id="musicIcon" class="fas fa-volume-mute"></i> </button>
+    </div>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
