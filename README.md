@@ -1,6 +1,6 @@
 # 📸 Ảnh Khôi Chụp - Photography Portfolio
 
-Chào mừng bạn đến với dự án Website Portfolio cá nhân của **Ảnh Khôi Chụp**. Đây là không gian trưng bày những tác phẩm nhiếp ảnh nghệ thuật, được tối ưu hóa về trải nghiệm người dùng và thẩm mỹ tối giản.
+Chào mừng bạn đến với dự án Website Portfolio cá nhân của mình. Đây là không gian trưng bày những hình ảnh mình chụp, được tối ưu hóa về trải nghiệm người dùng và thẩm mỹ tối giản.
 
 ## ✨ Tính năng nổi bật
 
