@@ -8,8 +8,6 @@ Dự án tích hợp các công nghệ hiện đại nhằm mang lại trải ng
 
 * **Parallax Hero Section:** Hiệu ứng ảnh bìa chuyển động sâu tạo cảm giác nghệ thuật ngay từ cái nhìn đầu tiên.
 * **AOS Reveal Animation:** Hình ảnh được hiển thị mượt mà theo nhịp cuộn của người xem.
-* **Dark/Light Mode:** Chế độ giao diện linh hoạt (Nền đen sâu lắng hoặc trắng kem trong trẻo) giúp tôn vinh mọi concept ảnh.
-* **Ambient Music:** Tích hợp nhạc nền môi trường với nút điều khiển icon loa tối giản, tăng cảm xúc khi thưởng thức tác phẩm.
 * **Responsive Design:** Tối ưu hóa hoàn toàn trên thiết bị di động với Layout Gallery tỉ lệ 4:5 chuyên nghiệp.
 
 ## 🛠 Công nghệ sử dụng
@@ -26,6 +24,6 @@ Dự án tích hợp các công nghệ hiện đại nhằm mang lại trải ng
 /
 ├── images/          # Chứa toàn bộ hình ảnh Portfolio và Hero
 ├── index.html       # File cấu trúc chính của website
-├── style.css        # File thiết kế giao diện (Dark/Light Mode)
-├── script.js       # File xử lý nhạc nền và chuyển đổi giao diện
+├── style.css        # File thiết kế giao diện 
+├── script.js       # File xử lý tác vụ
 └── README.md        # Tài liệu hướng dẫn dự án
