@@ -1,4 +1,4 @@
-# 📸 Ảnh Khôi Chụp - Photography Portfolio
+# 📸 BY KHOI DINH - Photography Portfolio
 
 Chào mừng bạn đến với dự án Website Portfolio cá nhân của mình. Đây là không gian trưng bày những hình ảnh mình chụp, được tối ưu hóa về trải nghiệm người dùng và thẩm mỹ tối giản.
 
