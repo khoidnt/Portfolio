@@ -27,3 +27,4 @@ Dự án tích hợp các công nghệ hiện đại nhằm mang lại trải ng
 ├── style.css        # File thiết kế giao diện 
 ├── script.js       # File xử lý tác vụ
 └── README.md        # Tài liệu hướng dẫn dự án
+git
