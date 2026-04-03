@@ -418,3 +418,75 @@ footer { text-align: center; padding: 20px; background: #000; font-size: 0.8rem;
     background: var(--text-color);
     color: var(--bg-color);
 }
+/* =========================================
+   ANIMATION: UPDATING STATUS (Cuối Gallery)
+   ========================================= */
+.gallery-more-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 60px; /* Khoảng cách với lưới ảnh */
+    padding: 20px;
+    border-top: 1px solid rgba(212, 175, 55, 0.1); /* Viền mờ ngăn cách */
+    width: 100%;
+    text-align: center;
+}
+
+/* Kiểu dáng 3 dấu chấm */
+.loading-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.loading-dots span {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-color); /* Màu vàng kim */
+    border-radius: 50%;
+    opacity: 0.6;
+    /* Định nghĩa animation */
+    animation: dots-jump 1.4s infinite ease-in-out both;
+}
+
+/* Delay cho từng dấu chấm để tạo hiệu ứng sóng */
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+/* Kiểu dáng text thông báo */
+.status-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    /* Animation ẩn hiện nhẹ cho chữ */
+    animation: text-fade 2.8s infinite ease-in-out;
+}
+
+/* KEYFRAMES: Dấu chấm nhảy */
+@keyframes dots-jump {
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.3;
+    } 
+    40% { 
+        transform: scale(1.0);
+        opacity: 1;
+    }
+}
+
+/* KEYFRAMES: Text ẩn hiện mượt mà */
+@keyframes text-fade {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* Responsive: Thu nhỏ khoảng cách trên Mobile */
+@media (max-width: 768px) {
+    .gallery-more-status {
+        margin-top: 40px;
+    }
+}

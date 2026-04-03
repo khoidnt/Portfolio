@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. XỬ LÝ BỘ LỌC ALBUM (FILTER)
     const filterBtns = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const moreStatus = document.querySelector('.gallery-more-status');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -17,7 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Lấy giá trị lọc từ data-filter của nút
             const filterValue = btn.getAttribute('data-filter');
-
+            if (filterValue === 'all') {
+                if (moreStatus) moreStatus.style.display = 'flex';
+            } else {
+                if (moreStatus) moreStatus.style.display = 'none';
+            }
             galleryItems.forEach(item => {
                 // Lấy category của từng ảnh
                 const itemCategory = item.getAttribute('data-category');
