@@ -4,6 +4,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector('.navbar');
+    const menuButton = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('menu');
     
     // 1. XỬ LÝ BỘ LỌC ALBUM (FILTER)
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -47,6 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+            const isOpen = mobileMenu.hidden;
+            mobileMenu.hidden = !isOpen;
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+            menuButton.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.hidden = true;
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Mở menu');
+            });
+        });
+    }
+
     // 2. XỬ LÝ LIGHTBOX (XEM ẢNH PHÓNG TO)
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -79,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. THAY ĐỔI NAVBAR KHI CUỘN TRANG
     window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
@@ -101,6 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileMenu) {
+            mobileMenu.hidden = true;
+            if (menuButton) {
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Mở menu');
+            }
+        }
     });
 
 });

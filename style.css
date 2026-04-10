@@ -103,6 +103,59 @@ a { text-decoration: none; color: inherit; }
 .nav-links a { font-size: 0.9rem; text-transform: uppercase; transition: 0.3s; }
 .nav-links a:hover { color: #d4af37; /* Màu vàng kim */ }
 
+.menu-toggle {
+    display: none;
+    border: 0;
+    background: transparent;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-color);
+    border-radius: 999px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    right: 5%;
+    min-width: 220px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.96);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-links a {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-color);
+}
+
+.menu-links a:hover {
+    color: var(--accent-color);
+}
+
 /* 4. HERO  */
 .hero {
     height: 100vh;
@@ -315,9 +368,34 @@ footer { text-align: center; padding: 20px; background: #000; font-size: 0.8rem;
 
 /* Responsive Mobile */
 @media (max-width: 768px) {
-    .nav-links { display: none; } /* Ẩn menu trên mobile để đơn giản hóa */
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px 5%;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .logo {
+        position: static;
+        transform: none;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+
     .hero h1 { font-size: 2rem; }
     .about-container { flex-direction: column; }
+
+    .mobile-menu {
+        right: 5%;
+    }
 }
 /* Thêm icon contact */
 .contact-info {
@@ -356,27 +434,7 @@ footer { text-align: center; padding: 20px; background: #000; font-size: 0.8rem;
 /* Responsive nâng cao cho Navbar trên Mobile */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column; /* Xếp Logo và Menu thành 2 hàng dọc */
-        padding: 15px 5%;       /* Giảm padding lề cho rộng chỗ */
-        justify-content: center;
         height: auto;
-    }
-
-    .logo {
-        position: static;      /* Bỏ căn giữa tuyệt đối để không đè lên chữ khác */
-        transform: none;
-        margin-bottom: 15px;    /* Tạo khoảng cách với menu bên dưới */
-        font-size: 1.2rem;      /* Giảm nhẹ size chữ logo */
-    }
-
-    .nav-links {
-        justify-content: center;
-        gap: 15px;              /* Thu hẹp khoảng cách giữa các mục menu */
-        flex-wrap: wrap;        /* Nếu menu dài quá sẽ tự xuống dòng */
-    }
-
-    .nav-links a {
-        font-size: 0.9rem;      /* Giảm size chữ menu cho dễ nhìn */
     }
 }
 /* Responsive nâng cao cho Gallery trên Mobile */
