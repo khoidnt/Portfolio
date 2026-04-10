@@ -1,203 +1,230 @@
 <!DOCTYPE html>
 <html lang="vi">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> BY KHOI DINH</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-</head>
-<body>
-    <body>
+    <meta name="format-detection" content="telephone=no">
+    <title>BY KHOI DINH | Portfolio</title>
+    <meta name="description" content="Portfolio nhiếp ảnh của Khôi Đinh, nơi lưu giữ những khoảnh khắc chân dung, ngoại cảnh và đời thường với phong cách tối giản, cảm xúc.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#030303">
+    <meta name="author" content="Khoi Dinh">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:title" content="BY KHOI DINH | Portfolio">
+    <meta property="og:description" content="Portfolio nhiếp ảnh của Khôi Đinh với các bộ ảnh chân dung, ngoại cảnh và đời thường.">
+    <meta property="og:image" content="images/hero.jpg">
+    <meta property="og:site_name" content="BY KHOI DINH">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BY KHOI DINH | Portfolio">
+    <meta name="twitter:description" content="Portfolio nhiếp ảnh của Khôi Đinh với phong cách tối giản và cảm xúc.">
+    <meta name="twitter:image" content="images/hero.jpg">
+    <link rel="icon" type="image/jpeg" href="images/about.jpg">
+    <link rel="apple-touch-icon" href="images/about.jpg">
     
-    <nav class="navbar">
-        <div class="logo"> MY PORTFOLIO </div>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#home">Trang chủ</a></li>
-            <li><a href="#about">Giới thiệu</a></li>
-            <li><a href="#gallery">Bộ sưu tập</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
-        </ul>
-        <button id="menuToggle" class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="menu" aria-expanded="false" onclick="toggleMenu()">
-            <span class="menu-icon" aria-hidden="true"></span>
-        </button>
+    <!-- Fonts: Inter for minimal body, Playfair Display for elegant headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preload" as="image" href="images/hero.jpg">
+    
+    <!-- Styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <a href="#main-content" class="skip-link">Bỏ qua điều hướng</a>
+    
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">BY KHOI DINH</a>
+            
+            <ul class="nav-links" id="nav-links" aria-label="Điều hướng chính">
+                <li><a href="#home" class="nav-item">Trang chủ</a></li>
+                <li><a href="#about" class="nav-item">Giới thiệu</a></li>
+                <li><a href="#gallery" class="nav-item">Bộ sưu tập</a></li>
+                <li><a href="#contact" class="nav-item">Liên hệ</a></li>
+            </ul>
+            
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="menu" aria-haspopup="true" aria-expanded="false">
+                <span class="menu-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+
         <aside id="menu" class="mobile-menu" hidden>
-            <nav class="menu-links">
-                <a href="#home">Trang chủ</a>
-                <a href="#about">Giới thiệu</a>
-                <a href="#gallery">Bộ sưu tập</a>
-                <a href="#contact">Liên hệ</a>
+            <nav class="menu-links-mobile" aria-label="Điều hướng di động">
+                <a href="#home" class="nav-item">Trang chủ</a>
+                <a href="#about" class="nav-item">Giới thiệu</a>
+                <a href="#gallery" class="nav-item">Bộ sưu tập</a>
+                <a href="#contact" class="nav-item">Liên hệ</a>
             </nav>
         </aside>
-    </nav>
+    </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Bắt trọn từng khoảnh khắc</h1>
-            <p>Mình thường chụp ảnh Chân dung & Phong cảnh</p>
-            <a href="#gallery" class="btn">Xem tác phẩm</a>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <div class="container about-container">
-            <div class="about-img">
-                <img src="images/about.jpg" alt="Photographer">
+    <main id="main-content">
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Bắt trọn<br>từng khoảnh khắc</h1>
+                <p class="hero-subtitle">Vẻ đẹp chân thực ẩn giấu trong sự tối giản, nơi mỗi khung hình kể một câu chuyện cảm xúc.</p>
+                <div class="hero-actions">
+                    <a href="#gallery" class="btn btn-primary">Xem Tác Phẩm</a>
+                </div>
             </div>
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>Chào bạn, mình là Khôi - một người yêu thích nhiếp ảnh.</p>
-                <p>Với mình, nhiếp ảnh không chỉ là việc bấm máy, mà là cách mình lưu giữ những gì đẹp nhất, thật nhất của mỗi người. Mình không chạy theo những khung hình rập khuôn, mình tìm kiếm những nụ cười tự nhiên, những cái nhìn đầy cảm xúc và "chất riêng" mà đôi khi chính bạn cũng chưa nhận ra.</p>
-                <p>Mình luôn cầm máy với tư thế như đang chụp cho chính mình: Tận tâm, tỉ mỉ và trân trọng từng khoảnh khắc. Hãy cùng mình viết tiếp câu chuyện của bạn bằng những khung hình thật đẹp nhé!</p>
+            <div class="scroll-indicator">
+                <span>Cuộn xuống</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section about-section">
+            <div class="container about-container">
+                <div class="about-img-wrapper fade-in scroll-reveal">
+                    <div class="img-reveal-block"></div>
+                    <img src="images/about.jpg" alt="Khoi Dinh Photographer" class="about-img" loading="eager" fetchpriority="high" decoding="async">
+                </div>
                 
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="section">
-    <div class="container">
-        <h2 class="section-title">Những Bức Ảnh Mà Mình Đã Chụp</h2>
-        
-        <div class="gallery-filter">
-            <button class="filter-btn active" data-filter="all">Tất cả</button>
-            <button class="filter-btn" data-filter="chan-dung">Chân dung</button>
-            <button class="filter-btn" data-filter="ngoai-canh">Ngoại cảnh</button>
-            <button class="filter-btn" data-filter="doi-thuong">Đời thường</button>
-        </div>
-
-        <div class="gallery-grid">
-            <!-- Chân dung -->
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img1.jpg" alt="Chân dung 1">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img2.jpg" alt="Chân dung 2">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img3.jpg" alt="Chân dung 3">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img4.jpg" alt="Chân dung 4">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img5.jpg" alt="Chân dung 5">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img6.jpg" alt="Chân dung 6">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img7.jpg" alt="Chân dung 7">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img8.jpg" alt="Chân dung 8">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img9.jpg" alt="Chân dung 9">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img10.jpg" alt="Chân dung 10">
-            </div>
-             <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img11.jpg" alt="Chân dung 11">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img12.jpg" alt="Chân dung 12">
-            </div>
-            <div class="gallery-item" data-category="chan-dung" data-aos="fade-up">
-                <img src="images/chan-dung/img13.jpg" alt="Chân dung 13">   
+                <div class="about-text fade-in scroll-reveal delay-200">
+                    <span class="section-kicker">ABOUT MYSELF</span>
+                    <h2 class="section-title">Đôi dòng về mình.</h2>
+                    
+                    <div class="about-desc">
+                        <p class="lead">Chào bạn, mình là Khôi - một người yêu thích nhiếp ảnh.</p>
+                        <p>Với mình, nhiếp ảnh không chỉ là việc bấm máy, mà là cách mình lưu giữ những gì đẹp nhất, thật nhất của mỗi người. Mình không chạy theo những khung hình rập khuôn, mình tìm kiếm những nụ cười tự nhiên, những cái nhìn đầy cảm xúc và "chất riêng" mà đôi khi chính bạn cũng chưa nhận ra.</p>
+                        <p>Mình luôn cầm máy với tư thế như đang chụp cho chính mình: Tận tâm, tỉ mỉ và trân trọng từng khoảnh khắc. Hãy cùng mình viết tiếp câu chuyện của bạn bằng những khung hình thật đẹp nhé!</p>
+                    </div>
                 </div>
-            <!-- Ngoại cảnh -->
+            </div>
+        </section>
 
-            <div class="gallery-item" data-category="ngoai-canh" data-aos="fade-up">
-                <img src="images/ngoai-canh/img1.jpg" alt="Ngoại cảnh 1">
-            </div>
-             <div class="gallery-item" data-category="ngoai-canh" data-aos="fade-up">
-                <img src="images/ngoai-canh/img2.jpg" alt="Ngoại cảnh 2">
-            </div>
-            
-            <div class="gallery-item" data-category="ngoai-canh" data-aos="fade-up">
-                <img src="images/ngoai-canh/img3.jpg" alt="Ngoại cảnh 3">
-            </div>
-             <div class="gallery-item" data-category="ngoai-canh" data-aos="fade-up">
-                <img src="images/ngoai-canh/img4.jpg" alt="Ngoại cảnh 4">
-            </div>
-            <!-- Đời thường -->
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="gallery-header fade-in scroll-reveal">
+                    <div class="gallery-title-wrapper">
+                        <span class="section-kicker">Portfolio</span>
+                        <h2 class="section-title">Những Bức Ảnh Đã Chụp</h2>
+                    </div>
+                    
+                    <div class="gallery-filter">
+                        <button class="filter-btn active" data-filter="all">Tất Cả</button>
+                        <button class="filter-btn" data-filter="chan-dung">Chân Dung</button>
+                        <button class="filter-btn" data-filter="ngoai-canh">Ngoại Cảnh</button>
+                        <button class="filter-btn" data-filter="doi-thuong">Đời Thường</button>
+                    </div>
+                </div>
 
-            <div class="gallery-item" data-category="doi-thuong" data-aos="fade-up">
-                <img src="images/doi-thuong/img1.jpg" alt="Đời thường 1">
+                <div class="gallery-grid">
+                    <!-- Chân dung (13 pics) -->
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img1.jpg" alt="Chân dung 1" loading="eager" fetchpriority="high" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img2.jpg" alt="Chân dung 2" loading="eager" fetchpriority="high" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img3.jpg" alt="Chân dung 3" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img4.jpg" alt="Chân dung 4" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img5.jpg" alt="Chân dung 5" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img6.jpg" alt="Chân dung 6" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img7.jpg" alt="Chân dung 7" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img8.jpg" alt="Chân dung 8" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img9.jpg" alt="Chân dung 9" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img10.jpg" alt="Chân dung 10" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img11.jpg" alt="Chân dung 11" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img12.jpg" alt="Chân dung 12" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="chan-dung"><img src="images/chan-dung/img13.jpg" alt="Chân dung 13" loading="lazy" decoding="async"></div>
+                    
+                    <!-- Ngoại cảnh (4 pics) -->
+                    <div class="gallery-item" data-category="ngoai-canh"><img src="images/ngoai-canh/img1.jpg" alt="Ngoại cảnh 1" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="ngoai-canh"><img src="images/ngoai-canh/img2.jpg" alt="Ngoại cảnh 2" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="ngoai-canh"><img src="images/ngoai-canh/img3.jpg" alt="Ngoại cảnh 3" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="ngoai-canh"><img src="images/ngoai-canh/img4.jpg" alt="Ngoại cảnh 4" loading="lazy" decoding="async"></div>
+                    
+                    <!-- Đời thường (4 pics) -->
+                    <div class="gallery-item" data-category="doi-thuong"><img src="images/doi-thuong/img1.jpg" alt="Đời thường 1" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="doi-thuong"><img src="images/doi-thuong/img2.jpg" alt="Đời thường 2" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="doi-thuong"><img src="images/doi-thuong/img3.jpg" alt="Đời thường 3" loading="lazy" decoding="async"></div>
+                    <div class="gallery-item" data-category="doi-thuong"><img src="images/doi-thuong/img4.jpg" alt="Đời thường 4" loading="lazy" decoding="async"></div>
+                </div>
+
+                <div class="gallery-more-status fade-in scroll-reveal">
+                    <p class="status-text">Cuộn để xem thêm</p>
+                    <div class="loading-line"></div>
+                </div>
             </div>
-             <div class="gallery-item" data-category="doi-thuong" data-aos="fade-up">
-                <img src="images/doi-thuong/img2.jpg" alt="Đời thường 2">
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section contact-section">
+            <div class="container contact-container fade-in scroll-reveal">
+                <div class="contact-header">
+                    <h2 class="section-title">Kết Nối Với Mình</h2>
+                    <p class="contact-subtitle">Hãy cùng nhau tạo nên những bức ảnh của riêng bạn.</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:dinhngothaikhoi.sc@gmail.com" class="contact-link">dinhngothaikhoi.sc@gmail.com</a>
+                        </div>
+                        <div class="contact-card">
+                            <span class="contact-label">Phone</span>
+                            <a href="tel:0868125974" class="contact-link">086 812 5974</a>
+                        </div>
+                        <div class="contact-card">
+                            <span class="contact-label">Social</span>
+                            <a href="https://instagram.com/_ioohkdd._" target="_blank" rel="noopener noreferrer" class="contact-link instagram-link">
+                                Instagram <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-wrapper">
+                        <form action="https://formspree.io/f/mykkkzdd" method="POST" class="contact-form" id="contact-form" novalidate>
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder=" " required>
+                                <label for="name">Tên của bạn</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder=" " required>
+                                <label for="email">Địa chỉ Email</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" rows="1" placeholder=" " required></textarea>
+                                <label for="message">Bạn muốn kể câu chuyện gì?</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                Gửi Tin Nhắn <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </div>
             </div>
-            
-            <div class="gallery-item" data-category="doi-thuong" data-aos="fade-up">
-                <img src="images/doi-thuong/img3.jpg" alt="Đời thường 3">
-            </div>
-            <div class="gallery-item" data-category="doi-thuong" data-aos="fade-up">
-                <img src="images/doi-thuong/img4.jpg" alt="Đời thường 4">
-            </div>
-            <div class="gallery-more-status" data-aos="fade-up">
-            <div class="loading-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <p class="status-text">Đang cập nhật thêm khoảnh khắc...</p>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">B K D.</div>
+            <p class="copyright">&copy; 2025 BY KHOI DINH. All Rights Reserved.</p>
         </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="container contact-container">
-            <h2 class="section-title">Thông Tin Liên Hệ Của Mình</h2>
-                <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>dinhngothaikhoi.sc@gmail.com</p>
-                </div>
-                <div class="contact-item">
-                         <i class="fas fa-phone-alt"></i>
-                         <p>086 812 5974</p>
-                </div>
-                <div class="contact-item">
-                    <a href="https://instagram.com/_ioohkdd._" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                        <p>_ioohkdd._</p>
-                    </a>
-                </div>
-                     <p>Nếu bạn muốn cùng mình tạo nên những bức ảnh của riêng bạn.</p>
-                     <p> Hãy điền vào form bên dưới hoặc liên hệ mình qua Instagram và Zalo nhé!</p>
-            </div>
-            
-          <form action="https://formspree.io/f/mykkkzdd" method="POST" class="contact-form">
-                <input type="text" name="name" placeholder="Tên của bạn" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" rows="5" placeholder="Lời nhắn..." required></textarea>
-                <button type="submit" class="btn">Gửi đi</button>
-          </form>
-
-    </section>
-
-    <footer>
-        <p>&copy; 2025 BY KHOI DINH. All Rights Reserved.</p>
     </footer>
 
+    <!-- LIGHTBOX MODAL -->
     <div id="lightbox" class="lightbox">
-        <span class="close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
+        <div class="lightbox-overlay"></div>
+        <button class="close-lightbox" aria-label="Đóng ảnh">
+            <span></span><span></span>
+        </button>
+        <img class="lightbox-content" id="lightbox-img" alt="Phóng to ảnh">
     </div>
 
+    <!-- MAIN SCRIPT -->
     <script src="script.js"></script>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <script>AOS.init();</script>
-
-
-<script src="script.js"></script>
 </body>
 </html>
