@@ -7,6 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const menuButton = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('menu');
+
+    window.toggleMenu = () => {
+        if (!menuButton || !mobileMenu) {
+            return;
+        }
+
+        mobileMenu.hidden = !mobileMenu.hidden;
+        const isOpen = !mobileMenu.hidden;
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+        menuButton.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
+    };
     
     // 1. XỬ LÝ BỘ LỌC ALBUM (FILTER)
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -51,13 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', () => {
-            const isOpen = mobileMenu.hidden;
-            mobileMenu.hidden = !isOpen;
-            menuButton.setAttribute('aria-expanded', String(isOpen));
-            menuButton.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
-        });
-
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.hidden = true;

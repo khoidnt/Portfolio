@@ -114,16 +114,37 @@ a { text-decoration: none; color: inherit; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 0;
 }
 
-.menu-toggle span {
+.menu-icon {
     display: block;
     width: 22px;
     height: 2px;
     background: var(--text-color);
     border-radius: 999px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    background: var(--text-color);
+    border-radius: 999px;
+    transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-icon::before {
+    top: -7px;
+}
+
+.menu-icon::after {
+    bottom: -7px;
 }
 
 .mobile-menu {
