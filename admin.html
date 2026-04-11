@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Admin - BY KHOI DINH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #070707;
+            color: #f5f5f3;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: #0d0d0d;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(245, 245, 243, 0.1);
+        }
+        
+        .section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(245, 245, 243, 0.2);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9a9891;
+            margin-bottom: 6px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            background: #121212;
+            border: 1px solid rgba(245, 245, 243, 0.16);
+            color: #f5f5f3;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(245, 245, 243, 0.5);
+            background: #1b1b1b;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #f5f5f3;
+            color: #070707;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            margin-right: 8px;
+        }
+        
+        .btn-danger {
+            background: #ff6b6b;
+            color: #fff;
+        }
+        
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+        
+        .gallery-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .gallery-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #121212;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            background: #1b1b1b;
+            border-color: rgba(245, 245, 243, 0.3);
+        }
+        
+        .gallery-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .gallery-item-info {
+            flex: 1;
+        }
+        
+        .gallery-item-info small {
+            display: block;
+            color: #9a9891;
+            font-size: 0.8rem;
+        }
+        
+        .gallery-item-actions {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .stats {
+            background: #121212;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f5f5f3;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #9a9891;
+            letter-spacing: 0.1em;
+        }
+        
+        .success {
+            color: #7ee787;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .info-text {
+            font-size: 0.85rem;
+            color: #9a9891;
+            margin-top: 10px;
+            padding: 10px;
+            background: #121212;
+            border-radius: 4px;
+            border-left: 3px solid #9a9891;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📸 Gallery Admin Panel</h1>
+        
+        <div class="admin-grid">
+            <!-- ADD IMAGE SECTION -->
+            <div class="section">
+                <h2>Thêm Ảnh Mới</h2>
+                
+                <div class="form-group">
+                    <label>Đường dẫn ảnh</label>
+                    <input type="text" id="imgSrc" placeholder="images/chan-dung/img1.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="imgCategory">
+                        <option value="chan-dung">Chân Dung</option>
+                        <option value="ngoai-canh">Ngoại Cảnh</option>
+                        <option value="doi-thuong">Đời Thường</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Người (chỉ cho Chân Dung)</label>
+                    <select id="imgPerson">
+                        <option value="">Không chọn</option>
+                        <option value="thư">Thư</option>
+                        <option value="vy">Vy</option>
+                        <option value="thúy anh">Thúy Anh</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Thêm person mới</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="newPersonName" placeholder="Ví dụ: Ngọc">
+                        <button type="button" class="btn btn-small" onclick="addPersonOption()">Thêm</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên album phụ (tuỳ chọn)</label>
+                    <input type="text" id="imgAlbum" placeholder="Ví dụ: Pre-wedding Đà Lạt">
+                </div>
+                
+                <button class="btn" onclick="addImage()">Thêm Ảnh</button>
+                
+                <div id="addStatus" style="margin-top: 15px;"></div>
+                
+                <div class="info-text">
+                    💡 Trước tiên, upload ảnh vào folder <code>images/</code>, sau đó điền đường dẫn ở trên.
+                </div>
+            </div>
+            
+            <!-- STATS & EXPORT -->
+            <div class="section">
+                <h2>Thống kê & Xuất Dữ Liệu</h2>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-num" id="totalCount">0</div>
+                        <div class="stat-label">Tổng Ảnh</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="categoryCount">0</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="personCount">0</div>
+                        <div class="stat-label">Người</div>
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="downloadJSON()">📥 Tải JSON</button>
+                <button class="btn" onclick="copyJSON()" style="margin-top: 10px;">📋 Copy JSON</button>
+                <button class="btn btn-danger" onclick="clearAllData()" style="margin-top: 10px;">🗑️ Xóa Tất Cả</button>
+                
+                <div id="exportStatus" style="margin-top: 15px;"></div>
+            </div>
+        </div>
+        
+        <!-- GALLERY LIST -->
+        <div class="section">
+            <h2>Danh Sách Ảnh</h2>
+            
+            <div class="form-group">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm ảnh...">
+            </div>
+
+            <div id="loadStatus" style="margin-bottom: 12px;"></div>
+            
+            <div class="gallery-list" id="galleryList"></div>
+        </div>
+    </div>
+    
+    <script>
+        let galleryData = [];
+        let personSet = new Set();
+
+        function toPersonValue(name) {
+            return name.trim().toLowerCase();
+        }
+
+        function toPersonLabel(name) {
+            const trimmed = name.trim();
+            if (!trimmed) {
+                return '';
+            }
+            return trimmed
+                .split(' ')
+                .filter(Boolean)
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        function ensurePersonOption(personValue, personLabel) {
+            const select = document.getElementById('imgPerson');
+            if (!select || !personValue) {
+                return;
+            }
+
+            if (personSet.has(personValue)) {
+                return;
+            }
+
+            const option = document.createElement('option');
+            option.value = personValue;
+            option.textContent = personLabel || toPersonLabel(personValue);
+            select.appendChild(option);
+            personSet.add(personValue);
+        }
+
+        function hydratePersonOptions() {
+            const select = document.getElementById('imgPerson');
+            if (!select) {
+                return;
+            }
+
+            personSet = new Set();
+
+            Array.from(select.options).forEach((opt) => {
+                if (!opt.value) {
+                    return;
+                }
+                personSet.add(opt.value);
+            });
+
+            galleryData.forEach((img) => {
+                const person = (img.person || '').trim();
+                if (!person) {
+                    return;
+                }
+                ensurePersonOption(toPersonValue(person), toPersonLabel(person));
+            });
+        }
+
+        function addPersonOption() {
+            const input = document.getElementById('newPersonName');
+            const select = document.getElementById('imgPerson');
+            if (!input || !select) {
+                return;
+            }
+
+            const raw = input.value.trim();
+            if (!raw) {
+                showStatus('addStatus', 'Vui lòng nhập tên person trước khi thêm.', 'error');
+                return;
+            }
+
+            const personValue = toPersonValue(raw);
+            const personLabel = toPersonLabel(raw);
+
+            ensurePersonOption(personValue, personLabel);
+            select.value = personValue;
+            input.value = '';
+            showStatus('addStatus', `✓ Đã thêm person: ${personLabel}`, 'success');
+        }
+        
+        // Load data on init
+        function initAdmin() {
+            fetch('gallery-data.json')
+                .then(res => res.json())
+                .then(data => {
+                    galleryData = data.gallery || [];
+                    hydratePersonOptions();
+                    showStatus('loadStatus', '✓ Đã tải dữ liệu gallery-data.json', 'success');
+                    renderGallery();
+                    updateStats();
+                })
+                .catch(err => {
+                    console.error('Error loading gallery data:', err);
+                    showStatus('loadStatus', 'Khong tai duoc gallery-data.json. Hay mo bang local server (VD: Live Server).', 'error');
+                    galleryData = [];
+                    renderGallery();
+                    updateStats();
+                });
+        }
+        
+        function addImage() {
+            const src = document.getElementById('imgSrc').value.trim();
+            const category = document.getElementById('imgCategory').value;
+            const person = document.getElementById('imgPerson').value;
+            const album = document.getElementById('imgAlbum').value.trim();
+            const alt = album || person || category || 'Ảnh portfolio';
+            
+            if (!src) {
+                showStatus('addStatus', 'Vui lòng nhập đường dẫn ảnh', 'error');
+                return;
+            }
+            
+            const newId = galleryData.length > 0 ? Math.max(...galleryData.map(g => g.id)) + 1 : 1;
+            
+            galleryData.push({
+                id: newId,
+                src: src,
+                alt: alt,
+                category: category,
+                person: person,
+                album: album
+            });
+
+            if (person) {
+                ensurePersonOption(toPersonValue(person), toPersonLabel(person));
+            }
+            
+            // Clear form
+            document.getElementById('imgSrc').value = '';
+            document.getElementById('imgPerson').value = '';
+            document.getElementById('imgAlbum').value = '';
+            
+            renderGallery();
+            updateStats();
+            showStatus('addStatus', '✓ Đã thêm ảnh thành công!', 'success');
+        }
+        
+        function deleteImage(id) {
+            if (confirm('Bạn chắc chắn muốn xóa ảnh này?')) {
+                galleryData = galleryData.filter(img => img.id !== id);
+                renderGallery();
+                updateStats();
+                showStatus('addStatus', '✓ Đã xóa ảnh', 'success');
+            }
+        }
+        
+        function renderGallery() {
+            const list = document.getElementById('galleryList');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = galleryData.filter(img => 
+                img.alt.toLowerCase().includes(search) ||
+                img.src.toLowerCase().includes(search) ||
+                img.person.toLowerCase().includes(search)
+            );
+            
+            list.innerHTML = filtered.map(img => `
+                <div class="gallery-item">
+                    <img src="${img.src}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2250%22 height=%2250%22%3E%3Crect fill=%22%23333%22 width=%2250%22 height=%2250%22/%3E%3C/svg%3E'" alt="${img.alt || 'Ảnh'}">
+                    <div class="gallery-item-info">
+                        <div>${img.album || img.person || 'Ảnh mới'}</div>
+                        <small>${img.src}</small>
+                        <small>${img.category} ${img.person ? '• ' + img.person : ''} ${img.album ? '• album: ' + img.album : ''}</small>
+                    </div>
+                    <div class="gallery-item-actions">
+                        <button class="btn btn-small btn-danger" onclick="deleteImage(${img.id})">Xóa</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStats() {
+            const categories = new Set(galleryData.map(g => g.category)).size;
+            const people = new Set(galleryData.filter(g => g.person).map(g => g.person)).size;
+            
+            document.getElementById('totalCount').textContent = galleryData.length;
+            document.getElementById('categoryCount').textContent = categories;
+            document.getElementById('personCount').textContent = people;
+        }
+        
+        function downloadJSON() {
+            const dataStr = JSON.stringify({ gallery: galleryData }, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'gallery-data.json';
+            link.click();
+            showStatus('exportStatus', '✓ JSON đã tải xuống!', 'success');
+        }
+        
+        function copyJSON() {
+            const dataStr = JSON.stringify({ gallery: galleryData }, null, 2);
+            navigator.clipboard.writeText(dataStr).then(() => {
+                showStatus('exportStatus', '✓ Đã copy JSON vào clipboard!', 'success');
+            });
+        }
+        
+        function clearAllData() {
+            if (confirm('⚠️ Bạn chắc chắn muốn xóa TẤT CẢ dữ liệu? Hành động này không thể hoàn tác!')) {
+                galleryData = [];
+                renderGallery();
+                updateStats();
+                showStatus('addStatus', '✓ Đã xóa tất cả dữ liệu', 'success');
+            }
+        }
+        
+        function showStatus(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = `<span class="${type}">${message}</span>`;
+            setTimeout(() => {
+                el.innerHTML = '';
+            }, 4000);
+        }
+        
+        // Search
+        document.getElementById('searchInput').addEventListener('input', renderGallery);
+        
+        // Init
+        initAdmin();
+    </script>
+</body>
+</html>

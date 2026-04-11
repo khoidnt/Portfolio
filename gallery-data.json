@@ -1,0 +1,151 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "src": "images/chan-dung/img1.jpg",
+      "alt": "Chân dung Thư 1",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 2,
+      "src": "images/chan-dung/img2.jpg",
+      "alt": "Chân dung Thư 2",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 3,
+      "src": "images/chan-dung/img3.jpg",
+      "alt": "Chân dung Vy 1",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 4,
+      "src": "images/chan-dung/img4.jpg",
+      "alt": "Chân dung Vy 2",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 5,
+      "src": "images/chan-dung/img5.jpg",
+      "alt": "Chân dung Thúy Anh 1",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 6,
+      "src": "images/chan-dung/img6.jpg",
+      "alt": "Chân dung Thúy Anh 2",
+      "category": "chan-dung",
+      "person": "vy"
+    },
+    {
+      "id": 7,
+      "src": "images/chan-dung/img7.jpg",
+      "alt": "Chân dung 7",
+      "category": "chan-dung",
+      "person": "thư"
+    },
+    {
+      "id": 8,
+      "src": "images/chan-dung/img8.jpg",
+      "alt": "Chân dung 8",
+      "category": "chan-dung",
+      "person": "thư"
+    },
+    {
+      "id": 9,
+      "src": "images/chan-dung/img9.jpg",
+      "alt": "Chân dung 9",
+      "category": "chan-dung",
+      "person": "thư"
+    },
+    {
+      "id": 10,
+      "src": "images/chan-dung/img10.jpg",
+      "alt": "Chân dung 10",
+      "category": "chan-dung",
+      "person": "thúy anh"
+    },
+    {
+      "id": 11,
+      "src": "images/chan-dung/img11.jpg",
+      "alt": "Chân dung 11",
+      "category": "chan-dung",
+      "person": "thúy anh"
+    },
+    {
+      "id": 12,
+      "src": "images/chan-dung/img12.jpg",
+      "alt": "Chân dung 12",
+      "category": "chan-dung",
+      "person": "thúy anh"
+    },
+    {
+      "id": 13,
+      "src": "images/chan-dung/img13.jpg",
+      "alt": "Chân dung 13",
+      "category": "chan-dung",
+      "person": "thúy anh"
+    },
+    {
+      "id": 14,
+      "src": "images/ngoai-canh/img1.jpg",
+      "alt": "Ngoại cảnh 1",
+      "category": "ngoai-canh",
+      "person": ""
+    },
+    {
+      "id": 15,
+      "src": "images/ngoai-canh/img2.jpg",
+      "alt": "Ngoại cảnh 2",
+      "category": "ngoai-canh",
+      "person": ""
+    },
+    {
+      "id": 16,
+      "src": "images/ngoai-canh/img3.jpg",
+      "alt": "Ngoại cảnh 3",
+      "category": "ngoai-canh",
+      "person": ""
+    },
+    {
+      "id": 17,
+      "src": "images/ngoai-canh/img4.jpg",
+      "alt": "Ngoại cảnh 4",
+      "category": "ngoai-canh",
+      "person": ""
+    },
+    {
+      "id": 18,
+      "src": "images/doi-thuong/img1.jpg",
+      "alt": "Đời thường 1",
+      "category": "doi-thuong",
+      "person": ""
+    },
+    {
+      "id": 19,
+      "src": "images/doi-thuong/img2.jpg",
+      "alt": "Đời thường 2",
+      "category": "doi-thuong",
+      "person": ""
+    },
+    {
+      "id": 20,
+      "src": "images/doi-thuong/img3.jpg",
+      "alt": "Đời thường 3",
+      "category": "doi-thuong",
+      "person": ""
+    },
+    {
+      "id": 21,
+      "src": "images/doi-thuong/img4.jpg",
+      "alt": "Đời thường 4",
+      "category": "doi-thuong",
+      "person": ""
+    }
+  ]
+}
