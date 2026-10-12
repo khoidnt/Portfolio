@@ -7,8 +7,20 @@
     <title>BY KHOI DINH | Portfolio</title>
     <meta name="description" content="Nơi lưu giữ những khoảnh khắc đáng nhớ.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#070707">
+    <meta name="theme-color" content="#0c0b0a">
+    <meta name="color-scheme" content="dark light">
     <meta name="author" content="Khoi Dinh">
+
+    <!-- Apply saved theme before first paint (dark is the default) -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {}
+        })();
+    </script>
 
     <meta property="og:type" content="website">
     <meta property="og:locale" content="vi_VN">
@@ -23,35 +35,44 @@
     <meta name="twitter:image" content="images/hero.jpg">
     <link rel="icon" type="image/jpeg" href="images/about.jpg">
     <link rel="apple-touch-icon" href="images/about.jpg">
-    
-    <!-- Fonts: editorial serif + modern grotesk -->
+
+    <!-- Fonts: editorial serif + modern grotesk (both include Vietnamese glyphs) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preload" as="image" href="images/hero.jpg">
-    
+    <link rel="preload" as="image" href="images/hero.jpg" fetchpriority="high">
+
     <!-- Styling -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-theme">
+<body>
     <a href="#main-content" class="skip-link">Bỏ qua điều hướng</a>
-    
+
     <header class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo">BY KHOI DINH</a>
-            
-            <ul class="nav-links" id="nav-links" aria-label="Điều hướng chính">
-                <li><a href="#home" class="nav-item">Trang chủ</a></li>
-                <li><a href="#gallery" class="nav-item">Bộ sưu tập</a></li>
-                <li><a href="#about" class="nav-item">About/Contact</a></li>
-            </ul>
-            
-            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="menu" aria-haspopup="true" aria-expanded="false">
-                <span class="menu-icon" aria-hidden="true"></span>
-            </button>
+
+            <div class="nav-right">
+                <nav aria-label="Điều hướng chính">
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="#home" class="nav-item">Trang chủ</a></li>
+                        <li><a href="#gallery" class="nav-item">Bộ sưu tập</a></li>
+                        <li><a href="#about" class="nav-item">About/Contact</a></li>
+                    </ul>
+                </nav>
+
+                <button id="themeToggle" class="icon-btn theme-toggle" type="button" aria-label="Bật giao diện sáng" aria-pressed="false">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <i class="fas fa-sun" aria-hidden="true"></i>
+                </button>
+
+                <button id="menuToggle" class="icon-btn menu-toggle" type="button" aria-label="Mở menu" aria-controls="menu" aria-expanded="false">
+                    <span class="menu-icon" aria-hidden="true"></span>
+                </button>
+            </div>
         </div>
 
         <aside id="menu" class="mobile-menu" hidden>
@@ -66,127 +87,152 @@
     <main id="main-content">
         <!-- HERO SECTION -->
         <section id="home" class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">Bắt trọn từng khoảnh khắc</h1>
-                <p class="hero-subtitle">Vẻ đẹp chân thực ẩn giấu trong sự tối giản, nơi mỗi khung hình kể một câu chuyện cảm xúc.</p>
-                <div class="hero-actions">
-                    <a href="#gallery" class="btn btn-primary">Xem Tác Phẩm</a>
+            <div class="hero-media" aria-hidden="true">
+                <img src="images/hero.jpg" alt="" width="2560" height="1707" fetchpriority="high" decoding="async">
+            </div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+
+            <div class="container hero-content">
+                <div>
+                    <span class="section-kicker">Photography Portfolio</span>
+                    <h1 class="hero-title">Bắt trọn <em>từng khoảnh khắc</em></h1>
+                </div>
+                <div class="hero-aside">
+                    <p class="hero-subtitle">Vẻ đẹp chân thực ẩn giấu trong sự tối giản, nơi mỗi khung hình kể một câu chuyện cảm xúc.</p>
+                    <div class="hero-actions">
+                        <a href="#gallery" class="btn btn-primary">Xem Tác Phẩm <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <a href="#contact" class="btn btn-ghost">Liên hệ</a>
+                    </div>
                 </div>
             </div>
-            <div class="scroll-indicator">
+
+            <div class="scroll-indicator" aria-hidden="true">
                 <span>Cuộn xuống</span>
-                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
         <!-- GALLERY SECTION -->
         <section id="gallery" class="section gallery-section">
             <div class="container">
-                <div class="gallery-header fade-in scroll-reveal">
+                <div class="gallery-header scroll-reveal">
                     <div class="gallery-title-wrapper">
                         <span class="section-kicker">Portfolio</span>
-                        <h2 class="section-title">Những Bức Ảnh Mình Đã Chụp</h2>
+                        <h2 class="section-title">Những bức ảnh <em>mình đã chụp</em></h2>
                     </div>
-                    
-                    <div class="gallery-filter">
-                        <button class="filter-btn active" data-filter="all">Tất Cả</button>
-                        <button class="filter-btn" data-filter="chan-dung">Chân Dung</button>
-                        <button class="filter-btn" data-filter="ngoai-canh">Ngoại Cảnh</button>
-                        <button class="filter-btn" data-filter="doi-thuong">Đời Thường</button>
-                    </div>
-                    
-                    <div class="gallery-filter" id="personFilter" style="display: none;">
-                        <button class="person-filter-btn active" data-person="all">Tất Cả</button>
-                        <button class="person-filter-btn" data-person="thư">Thư</button>
-                        <button class="person-filter-btn" data-person="vy">Vy</button>
-                        <button class="person-filter-btn" data-person="thúy anh">Thúy Anh</button>
+
+                    <div class="gallery-filters">
+                        <div class="gallery-filter" role="group" aria-label="Lọc theo thể loại">
+                            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">Tất Cả</button>
+                            <button type="button" class="filter-btn" data-filter="chan-dung" aria-pressed="false">Chân Dung</button>
+                            <button type="button" class="filter-btn" data-filter="ngoai-canh" aria-pressed="false">Ngoại Cảnh</button>
+                            <button type="button" class="filter-btn" data-filter="doi-thuong" aria-pressed="false">Đời Thường</button>
+                        </div>
+
+                        <div class="gallery-filter" id="personFilter" role="group" aria-label="Lọc theo người mẫu" style="display: none;">
+                            <button type="button" class="person-filter-btn active" data-person="all" aria-pressed="true">Tất Cả</button>
+                            <button type="button" class="person-filter-btn" data-person="thư" aria-pressed="false">Thư</button>
+                            <button type="button" class="person-filter-btn" data-person="vy" aria-pressed="false">Vy</button>
+                            <button type="button" class="person-filter-btn" data-person="thúy anh" aria-pressed="false">Thúy Anh</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="gallery-grid" id="galleryGrid">
-                    <!-- Ảnh sẽ được load từ gallery-data.json -->
+                    <!-- Album được tạo từ gallery-data.json -->
                 </div>
 
-                <div class="gallery-more-status fade-in scroll-reveal">
-                    <p class="status-text">Cuộn để xem thêm</p>
-                    <div class="loading-line"></div>
+                <div class="gallery-more-status scroll-reveal">
+                    <p class="status-text">Chọn một album để xem trọn bộ</p>
+                    <div class="loading-line" aria-hidden="true"></div>
                 </div>
             </div>
         </section>
 
         <!-- ABOUT / CONTACT SECTION -->
         <section id="about" class="section contact-section">
-            <div class="container about-container about-contact-about">
-                <div class="about-img-wrapper fade-in scroll-reveal">
-                    <div class="img-reveal-block"></div>
-                    <img src="images/about.jpg" alt="Khoi Dinh Photographer" class="about-img" loading="eager" fetchpriority="high" decoding="async">
+            <div class="container about-container">
+                <div class="about-img-wrapper scroll-reveal">
+                    <div class="about-img-frame">
+                        <img src="images/about.jpg" alt="Chân dung Khôi Đinh" class="about-img" width="762" height="762" loading="lazy" decoding="async">
+                    </div>
                 </div>
 
-                <div class="about-text fade-in scroll-reveal delay-200">
-                    <span class="section-kicker">ABOUT MYSELF</span>
-                    <h2 class="section-title">Đôi dòng về mình.</h2>
+                <div class="about-text scroll-reveal delay-200">
+                    <span class="section-kicker">About myself</span>
+                    <h2 class="section-title">Đôi dòng <em>về mình.</em></h2>
 
                     <div class="about-desc">
                         <p class="lead">Chào bạn, mình là Khôi - một người yêu thích nhiếp ảnh.</p>
                         <p>Với mình, nhiếp ảnh không chỉ là việc bấm máy, mà là cách mình lưu giữ những gì đẹp nhất, thật nhất của mỗi người. Mình không chạy theo những khung hình rập khuôn, mình tìm kiếm những nụ cười tự nhiên, những cái nhìn đầy cảm xúc và "chất riêng" mà đôi khi chính bạn cũng chưa nhận ra.</p>
                         <p>Mình luôn cầm máy với tư thế như đang chụp cho chính mình: Tận tâm, tỉ mỉ và trân trọng từng khoảnh khắc. Hãy cùng mình viết tiếp câu chuyện của bạn bằng những khung hình thật đẹp nhé!</p>
                     </div>
+
+                    <ul class="about-stats" aria-label="Thống kê bộ sưu tập">
+                        <li><strong data-stat="photos">—</strong><span>Bức ảnh</span></li>
+                        <li><strong data-stat="albums">—</strong><span>Album</span></li>
+                        <li><strong data-stat="categories">—</strong><span>Thể loại</span></li>
+                    </ul>
                 </div>
             </div>
 
             <div id="contact" class="contact-anchor" aria-hidden="true"></div>
-            <div class="container contact-container fade-in scroll-reveal">
-                <div class="contact-header">
-                    <h2 class="section-title">Kết Nối Với Mình</h2>
-                    <p class="contact-subtitle">Hãy cùng nhau tạo nên những bức ảnh của riêng bạn.</p>
-                </div>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <span class="contact-label">Email</span>
-                            <a href="mailto:dinhngothaikhoi.sc@gmail.com" class="contact-link">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <span>dinhngothaikhoi.sc@gmail.com</span>
-                            </a>
-                        </div>
-                        <div class="contact-card">
-                            <span class="contact-label">Phone</span>
-                            <a href="tel:0868125974" class="contact-link">
-                                <i class="fas fa-phone" aria-hidden="true"></i>
-                                <span>086 812 5974</span>
-                            </a>
-                        </div>
-                        <div class="contact-card">
-                            <span class="contact-label">Social Media</span>
-                            <a href="https://instagram.com/_ioohkdd._" target="_blank" rel="noopener noreferrer" class="contact-link instagram-link">
-                                <i class="fab fa-instagram" aria-hidden="true"></i>
-                                <span>Instagram</span>
-                                <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
+            <div class="container contact-container scroll-reveal">
+                <div class="contact-panel">
+                    <div class="contact-header">
+                        <span class="section-kicker">Contact</span>
+                        <h2 class="section-title">Kết nối <em>với mình</em></h2>
+                        <p class="contact-subtitle">Hãy cùng nhau tạo nên những bức ảnh của riêng bạn.</p>
                     </div>
-                    
-                    <div class="contact-form-wrapper">
-                        <form action="https://formspree.io/f/mykkkzdd" method="POST" class="contact-form" id="contact-form" novalidate>
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" placeholder=" " required>
-                                <label for="name">Tên của bạn</label>
+
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <div class="contact-card">
+                                <span class="contact-label">Email</span>
+                                <a href="mailto:dinhngothaikhoi.sc@gmail.com" class="contact-link">
+                                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                                    <span>dinhngothaikhoi.sc@gmail.com</span>
+                                </a>
                             </div>
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" placeholder=" " required>
-                                <label for="email">Địa chỉ Email</label>
+                            <div class="contact-card">
+                                <span class="contact-label">Phone</span>
+                                <a href="tel:0868125974" class="contact-link">
+                                    <i class="fas fa-phone" aria-hidden="true"></i>
+                                    <span>086 812 5974</span>
+                                </a>
                             </div>
-                            <div class="form-group">
-                                <textarea id="message" name="message" rows="1" placeholder=" " required></textarea>
-                                <label for="message">Bạn muốn kể câu chuyện gì?</label>
+                            <div class="contact-card">
+                                <span class="contact-label">Social Media</span>
+                                <a href="https://instagram.com/_ioohkdd._" target="_blank" rel="noopener noreferrer" class="contact-link instagram-link">
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                    <span>Instagram</span>
+                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
-                            <button type="submit" class="btn btn-primary submit-btn">
-                                Gửi Tin Nhắn <i class="fas fa-paper-plane"></i>
-                            </button>
-                            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-                        </form>
+                        </div>
+
+                        <div class="contact-form-wrapper">
+                            <form action="https://formspree.io/f/mykkkzdd" method="POST" class="contact-form" id="contact-form" novalidate>
+                                <div class="form-group">
+                                    <input type="text" id="name" name="name" placeholder=" " autocomplete="name" required aria-describedby="name-error">
+                                    <label for="name">Tên của bạn *</label>
+                                    <p class="field-error" id="name-error">Vui lòng nhập tên của bạn.</p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="email" name="email" placeholder=" " autocomplete="email" required aria-describedby="email-error">
+                                    <label for="email">Địa chỉ Email *</label>
+                                    <p class="field-error" id="email-error">Email chưa đúng định dạng, ví dụ: ten@gmail.com</p>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="message" name="message" rows="1" placeholder=" " required aria-describedby="message-error"></textarea>
+                                    <label for="message">Bạn muốn kể câu chuyện gì? *</label>
+                                    <p class="field-error" id="message-error">Hãy chia sẻ đôi chút về buổi chụp bạn mong muốn.</p>
+                                </div>
+                                <button type="submit" class="btn btn-primary submit-btn">
+                                    Gửi Tin Nhắn <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                                <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,10 +243,19 @@
     <footer class="footer">
         <div class="container footer-container">
             <div class="footer-logo">B K D.</div>
-            <p class="copyright">&copy; 2025 BY KHOI DINH. All Rights Reserved.</p>
+            <div class="footer-social">
+                <a href="https://instagram.com/_ioohkdd._" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Instagram">
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:dinhngothaikhoi.sc@gmail.com" class="icon-btn" aria-label="Email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                </a>
+            </div>
+            <p class="copyright">&copy; <span id="year">2025</span> BY KHOI DINH. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- ALBUM MODAL -->
     <div id="albumModal" class="album-modal" aria-hidden="true">
         <div class="album-modal-overlay"></div>
         <div class="album-modal-panel" role="dialog" aria-modal="true" aria-labelledby="albumModalTitle">
@@ -209,19 +264,28 @@
                     <h3 id="albumModalTitle" class="album-modal-title">Album</h3>
                     <p id="albumModalMeta" class="album-modal-meta"></p>
                 </div>
-                <button id="closeAlbumModal" class="close-album-modal" aria-label="Đóng album">Đóng</button>
+                <button id="closeAlbumModal" class="close-album-modal" type="button" aria-label="Đóng album">
+                    <i class="fas fa-xmark" aria-hidden="true"></i> Đóng
+                </button>
             </div>
             <div id="albumModalGrid" class="album-modal-grid"></div>
         </div>
     </div>
 
-    <!-- LIGHTBOX MODAL -->
-    <div id="lightbox" class="lightbox">
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh" aria-hidden="true">
         <div class="lightbox-overlay"></div>
-        <button class="close-lightbox" aria-label="Đóng ảnh">
-            <span></span><span></span>
+        <button class="lightbox-btn close-lightbox" type="button" aria-label="Đóng ảnh">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
         </button>
-        <img class="lightbox-content" id="lightbox-img" alt="Phóng to ảnh">
+        <button class="lightbox-btn lightbox-prev" type="button" aria-label="Ảnh trước">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <img class="lightbox-content" id="lightbox-img" alt="">
+        <button class="lightbox-btn lightbox-next" type="button" aria-label="Ảnh tiếp theo">
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </button>
+        <p class="lightbox-counter" id="lightboxCounter" aria-live="polite"></p>
     </div>
 
     <!-- MAIN SCRIPT -->

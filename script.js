@@ -7,11 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('menu');
     const mobileLinks = document.querySelectorAll('.menu-links-mobile .nav-item');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const moreStatus = document.querySelector('.gallery-more-status');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeLightboxBtn = document.querySelector('.close-lightbox');
+    const lightboxPrevBtn = document.querySelector('.lightbox-prev');
+    const lightboxNextBtn = document.querySelector('.lightbox-next');
+    const lightboxCounter = document.getElementById('lightboxCounter');
     const albumModal = document.getElementById('albumModal');
     const albumModalGrid = document.getElementById('albumModalGrid');
     const albumModalTitle = document.getElementById('albumModalTitle');
@@ -30,6 +35,41 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = isLocked ? 'hidden' : '';
     };
 
+    const initThemeToggle = () => {
+        if (!themeToggle) {
+            return;
+        }
+
+        const root = document.documentElement;
+
+        const applyTheme = (theme) => {
+            const isLight = theme === 'light';
+            if (isLight) {
+                root.setAttribute('data-theme', 'light');
+            } else {
+                root.removeAttribute('data-theme');
+            }
+
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.setAttribute('aria-label', isLight ? 'Bật giao diện tối' : 'Bật giao diện sáng');
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute('content', isLight ? '#f5f1ea' : '#0c0b0a');
+            }
+        };
+
+        applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            applyTheme(nextTheme);
+            try {
+                localStorage.setItem('theme', nextTheme);
+            } catch (_error) {
+                // Storage unavailable (e.g. private mode) - theme still applies for this visit
+            }
+        });
+    };
+
     const setMenuState = (isOpen) => {
         if (!menuToggle || !mobileMenu) {
             return;
@@ -43,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         menuToggle.classList.toggle('is-open', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
+        if (navbar) {
+            navbar.classList.toggle('menu-open', isOpen);
+        }
         setBodyScrollLock(isOpen);
     };
 
@@ -92,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape' && !mobileMenu.hasAttribute('hidden')) {
                 setMenuState(false);
+                menuToggle.focus();
             }
         });
     };
@@ -113,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const offset = navbar ? navbar.offsetHeight - 20 : 70;
                 window.scrollTo({
-                    top: targetElement.offsetTop - offset,
+                    top: targetElement.getBoundingClientRect().top + window.scrollY - offset,
                     behavior: prefersReducedMotion ? 'auto' : 'smooth'
                 });
             });
@@ -153,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchingLinks = linksById.get(resolvedId) || [];
             matchingLinks.forEach((link) => {
                 link.classList.add('active');
-                link.setAttribute('aria-current', 'page');
+                link.setAttribute('aria-current', 'location');
             });
         };
 
@@ -183,6 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategoryFilter = 'all';
     let currentPersonFilter = 'all';
     let visibleAlbums = [];
+    let lightboxItems = [];
+    let lightboxIndex = 0;
+    let albumModalTrigger = null;
+    let lightboxTrigger = null;
 
     const categoryLabelMap = {
         'chan-dung': 'Chân Dung',
@@ -227,7 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        galleryGrid.innerHTML = `<p class="gallery-status-message">${message}</p>`;
+        galleryGrid.innerHTML = '';
+        const status = document.createElement('p');
+        status.className = 'gallery-status-message';
+        status.textContent = message;
+        galleryGrid.appendChild(status);
+    };
+
+    const renderStats = () => {
+        const values = {
+            photos: galleryData.length,
+            albums: new Set(galleryData.map(getAlbumKey)).size,
+            categories: new Set(galleryData.map((item) => item.category)).size
+        };
+
+        document.querySelectorAll('[data-stat]').forEach((node) => {
+            const value = values[node.getAttribute('data-stat')];
+            if (typeof value === 'number') {
+                node.textContent = String(value).padStart(2, '0');
+            }
+        });
     };
 
     const loadGalleryData = async () => {
@@ -241,12 +309,55 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryData = Array.isArray(data) ? data : (data.gallery || []);
             if (galleryData.length > 0) {
                 renderGalleryAlbums();
+                renderStats();
             } else {
                 renderGalleryStatus('Chưa có ảnh trong dữ liệu gallery.');
             }
         } catch (error) {
             console.error('Error loading gallery data:', error);
-            renderGalleryStatus('Khong tai duoc gallery-data.json. Hay mo site bang local server (VD: Live Server) de doc du lieu JSON.');
+            renderGalleryStatus('Không tải được gallery-data.json. Hãy mở site bằng local server (VD: Live Server) để đọc dữ liệu JSON.');
+        }
+    };
+
+    const isLightboxOpen = () => Boolean(lightbox && lightbox.classList.contains('active'));
+    const isAlbumModalOpen = () => Boolean(albumModal && albumModal.classList.contains('active'));
+
+    const showLightboxImage = (index) => {
+        if (!lightboxImg || !lightboxItems.length) {
+            return;
+        }
+
+        lightboxIndex = (index + lightboxItems.length) % lightboxItems.length;
+        const item = lightboxItems[lightboxIndex];
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.alt || '';
+
+        const hasMany = lightboxItems.length > 1;
+        if (lightboxPrevBtn) {
+            lightboxPrevBtn.hidden = !hasMany;
+        }
+        if (lightboxNextBtn) {
+            lightboxNextBtn.hidden = !hasMany;
+        }
+        if (lightboxCounter) {
+            lightboxCounter.hidden = !hasMany;
+            lightboxCounter.textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
+        }
+    };
+
+    const openLightbox = (items, index) => {
+        if (!lightbox || !lightboxImg) {
+            return;
+        }
+
+        lightboxTrigger = document.activeElement;
+        lightboxItems = items;
+        showLightboxImage(index);
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        setBodyScrollLock(true);
+        if (closeLightboxBtn) {
+            closeLightboxBtn.focus();
         }
     };
 
@@ -256,11 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        albumModalTrigger = document.activeElement;
         albumModalTitle.textContent = album.title;
         albumModalMeta.textContent = `${album.items.length} ảnh • ${categoryLabelMap[album.category] || 'Album'}`;
         albumModalGrid.innerHTML = '';
 
-        album.items.forEach((item) => {
+        album.items.forEach((item, itemIndex) => {
             const imageButton = document.createElement('button');
             imageButton.type = 'button';
             imageButton.className = 'album-modal-item';
@@ -273,13 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
             image.decoding = 'async';
 
             imageButton.appendChild(image);
-            imageButton.addEventListener('click', () => {
-                if (lightbox && lightboxImg) {
-                    lightboxImg.src = image.src;
-                    lightbox.classList.add('active');
-                    setBodyScrollLock(true);
-                }
-            });
+            imageButton.addEventListener('click', () => openLightbox(album.items, itemIndex));
 
             albumModalGrid.appendChild(imageButton);
         });
@@ -287,6 +393,9 @@ document.addEventListener('DOMContentLoaded', () => {
         albumModal.classList.add('active');
         albumModal.setAttribute('aria-hidden', 'false');
         setBodyScrollLock(true);
+        if (closeAlbumModalBtn) {
+            closeAlbumModalBtn.focus();
+        }
     };
 
     const closeAlbumModal = () => {
@@ -296,7 +405,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         albumModal.classList.remove('active');
         albumModal.setAttribute('aria-hidden', 'true');
-        setBodyScrollLock(lightbox ? lightbox.classList.contains('active') : false);
+        setBodyScrollLock(isLightboxOpen());
+        if (albumModalTrigger && typeof albumModalTrigger.focus === 'function') {
+            albumModalTrigger.focus();
+        }
     };
 
     const initAlbumModal = () => {
@@ -314,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && albumModal.classList.contains('active') && (!lightbox || !lightbox.classList.contains('active'))) {
+            if (event.key === 'Escape' && isAlbumModalOpen() && !isLightboxOpen()) {
                 closeAlbumModal();
             }
         });
@@ -351,6 +463,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         visibleAlbums = Array.from(albumMap.values());
 
+        const personFilterContainer = document.getElementById('personFilter');
+        if (personFilterContainer) {
+            personFilterContainer.style.display = currentCategoryFilter === 'chan-dung' ? 'flex' : 'none';
+        }
+
+        if (moreStatus) {
+            moreStatus.style.display = currentCategoryFilter === 'all' ? 'flex' : 'none';
+        }
+
         if (!visibleAlbums.length) {
             renderGalleryStatus('Không có album nào phù hợp với bộ lọc hiện tại.');
             return;
@@ -360,23 +481,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const albumCard = document.createElement('button');
             albumCard.type = 'button';
             albumCard.className = 'album-card';
-            albumCard.setAttribute('aria-label', `Mở album ${album.title}`);
+            albumCard.style.setProperty('--i', String(index));
+            albumCard.setAttribute('aria-label', `Mở album ${album.title}, ${album.items.length} ảnh`);
 
             const cover = document.createElement('div');
             cover.className = 'album-card-cover';
 
             const image = document.createElement('img');
             image.src = album.cover;
-            image.alt = `Ảnh bìa album ${album.title}`;
+            image.alt = '';
             image.loading = 'lazy';
             image.decoding = 'async';
 
             const overlay = document.createElement('div');
             overlay.className = 'album-card-overlay';
-            overlay.innerHTML = `
-                <div class="album-card-title">${album.title}</div>
-            `;
+            overlay.setAttribute('aria-hidden', 'true');
 
+            const text = document.createElement('div');
+            const meta = document.createElement('span');
+            meta.className = 'album-card-meta';
+            meta.textContent = categoryLabelMap[album.category] || 'Album';
+            const title = document.createElement('div');
+            title.className = 'album-card-title';
+            title.textContent = album.title;
+            text.append(meta, title);
+
+            const count = document.createElement('span');
+            count.className = 'album-card-count';
+            count.textContent = `${album.items.length} ảnh`;
+
+            overlay.append(text, count);
             cover.appendChild(image);
             cover.appendChild(overlay);
             albumCard.appendChild(cover);
@@ -384,15 +518,14 @@ document.addEventListener('DOMContentLoaded', () => {
             albumCard.addEventListener('click', () => openAlbumModal(index));
             galleryGrid.appendChild(albumCard);
         });
+    };
 
-        const personFilterContainer = document.getElementById('personFilter');
-        if (personFilterContainer) {
-            personFilterContainer.style.display = currentCategoryFilter === 'chan-dung' ? 'flex' : 'none';
-        }
-
-        if (moreStatus) {
-            moreStatus.style.display = currentCategoryFilter === 'all' ? 'flex' : 'none';
-        }
+    const setPressed = (buttons, activeButton) => {
+        buttons.forEach((item) => {
+            const isActive = item === activeButton;
+            item.classList.toggle('active', isActive);
+            item.setAttribute('aria-pressed', String(isActive));
+        });
     };
 
     const initGalleryFilter = () => {
@@ -410,15 +543,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentCategoryFilter = filterValue;
                 currentPersonFilter = 'all'; // Reset person filter when changing category
 
-                filterButtons.forEach((item) => item.classList.remove('active'));
-                button.classList.add('active');
+                setPressed(filterButtons, button);
 
                 // Reset person filter buttons
                 const personFilterBtns = document.querySelectorAll('.person-filter-btn');
-                personFilterBtns.forEach((btn) => btn.classList.remove('active'));
-                if (personFilterBtns.length) {
-                    personFilterBtns[0].classList.add('active');
-                }
+                setPressed(personFilterBtns, personFilterBtns[0]);
 
                 renderGalleryAlbums();
             });
@@ -439,10 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 currentPersonFilter = personValue;
-
-                personFilterBtns.forEach((item) => item.classList.remove('active'));
-                button.classList.add('active');
-
+                setPressed(personFilterBtns, button);
                 renderGalleryAlbums();
             });
         });
@@ -453,22 +579,30 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const openLightbox = (src) => {
-            lightboxImg.src = src;
-            lightbox.classList.add('active');
-            setBodyScrollLock(true);
-        };
-
         const closeLightbox = () => {
             lightbox.classList.remove('active');
-            setBodyScrollLock(albumModal ? albumModal.classList.contains('active') : false);
+            lightbox.setAttribute('aria-hidden', 'true');
+            setBodyScrollLock(isAlbumModalOpen());
+            if (lightboxTrigger && typeof lightboxTrigger.focus === 'function') {
+                lightboxTrigger.focus();
+            }
             window.setTimeout(() => {
-                lightboxImg.src = '';
+                if (!isLightboxOpen()) {
+                    lightboxImg.src = '';
+                }
             }, prefersReducedMotion ? 0 : 400);
         };
 
         if (closeLightboxBtn) {
             closeLightboxBtn.addEventListener('click', closeLightbox);
+        }
+
+        if (lightboxPrevBtn) {
+            lightboxPrevBtn.addEventListener('click', () => showLightboxImage(lightboxIndex - 1));
+        }
+
+        if (lightboxNextBtn) {
+            lightboxNextBtn.addEventListener('click', () => showLightboxImage(lightboxIndex + 1));
         }
 
         lightbox.addEventListener('click', (event) => {
@@ -478,8 +612,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+            if (!isLightboxOpen()) {
+                return;
+            }
+
+            if (event.key === 'Escape') {
                 closeLightbox();
+            } else if (event.key === 'ArrowLeft' && lightboxItems.length > 1) {
+                showLightboxImage(lightboxIndex - 1);
+            } else if (event.key === 'ArrowRight' && lightboxItems.length > 1) {
+                showLightboxImage(lightboxIndex + 1);
             }
         });
     };
@@ -489,12 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (prefersReducedMotion) {
-            revealElements.forEach((element) => element.classList.add('visible'));
-            return;
-        }
-
-        if (!('IntersectionObserver' in window)) {
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
             revealElements.forEach((element) => element.classList.add('visible'));
             return;
         }
@@ -561,20 +698,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             field.classList.toggle('invalid', !isValid);
+            field.setAttribute('aria-invalid', String(!isValid));
             return isValid;
         };
 
         fields.forEach((field) => {
-            field.addEventListener('input', () => validateField(field));
-            field.addEventListener('blur', () => validateField(field));
+            // Validate on blur; once a field is flagged, re-check as the user fixes it
+            field.addEventListener('blur', () => {
+                if (field.value.trim() || field.classList.contains('invalid')) {
+                    validateField(field);
+                }
+            });
+            field.addEventListener('input', () => {
+                if (field.classList.contains('invalid')) {
+                    validateField(field);
+                }
+            });
         });
 
         contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            const allValid = fields.every((field) => validateField(field));
-            if (!allValid) {
+            const results = fields.map((field) => validateField(field));
+            const firstInvalid = fields[results.indexOf(false)];
+            if (firstInvalid) {
                 setStatus('Vui lòng kiểm tra lại thông tin trước khi gửi.', 'error');
+                firstInvalid.focus();
                 return;
             }
 
@@ -597,7 +746,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 contactForm.reset();
-                fields.forEach((field) => field.classList.remove('invalid'));
+                fields.forEach((field) => {
+                    field.classList.remove('invalid');
+                    field.removeAttribute('aria-invalid');
+                });
+                textareas.forEach((textarea) => {
+                    textarea.style.height = 'auto';
+                });
                 setStatus('Đã gửi thành công. Mình sẽ phản hồi sớm nhất có thể.', 'success');
             } catch (_error) {
                 setStatus('Gửi chưa thành công. Bạn thử lại sau hoặc liên hệ qua Instagram nhé.', 'error');
@@ -609,6 +764,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const yearNode = document.getElementById('year');
+    if (yearNode) {
+        yearNode.textContent = String(new Date().getFullYear());
+    }
+
+    initThemeToggle();
     loadGalleryData();
     initNavbarScroll();
     initMobileMenu();
