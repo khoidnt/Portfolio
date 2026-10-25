@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.setAttribute('aria-pressed', String(isLight));
             themeToggle.setAttribute('aria-label', isLight ? 'Bật giao diện tối' : 'Bật giao diện sáng');
             if (themeColorMeta) {
-                themeColorMeta.setAttribute('content', isLight ? '#f5f1ea' : '#0c0b0a');
+                themeColorMeta.setAttribute('content', isLight ? '#f4f1ec' : '#111110');
             }
         };
 
@@ -156,11 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 event.preventDefault();
 
-                const offset = navbar ? navbar.offsetHeight - 20 : 70;
-                window.scrollTo({
-                    top: targetElement.getBoundingClientRect().top + window.scrollY - offset,
-                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
-                });
+                // Offset for the mobile top bar comes from CSS scroll-margin-top
+                targetElement.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
             });
         });
     };
@@ -216,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 rootMargin: '-35% 0px -45% 0px',
-                threshold: [0.2, 0.4, 0.6]
+                // Ratio thresholds never fire for sections taller than the 20% band
+                threshold: 0
             }
         );
 
